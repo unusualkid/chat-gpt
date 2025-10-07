@@ -1,0 +1,116 @@
+/* App.css */
+
+body {
+  font-family: system-ui, sans-serif;
+  background-color: #f6f8fa;
+  margin: 0;
+  padding: 0;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem;
+  min-height: 100vh;
+  gap: 2rem;
+}
+
+.app-card {
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  width: 100%;
+  max-width: 600px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.app-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+
+.app-title {
+  font-size: 1.8rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.app-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.app-input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.app-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.app-button:hover {
+  background-color: #0056b3;
+}
+
+.app-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.app-button-green {
+  background-color: #28a745;
+  margin-top: 0.5rem;
+}
+
+.app-button-green:hover {
+  background-color: #1e7e34;
+}
+
+.loading {
+  text-align: center;
+  color: #666;
+  margin-top: 1rem;
+  font-style: italic;
+}
+
+.result-box {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #f1f8ff;
+  border-radius: 8px;
+  border: 1px solid #d0e7ff;
+}
+
+.joke-box {
+  margin-top: 1.5rem;
+  background-color: #fff8e1;
+  padding: 1rem;
+  border-radius: 8px;
+  font-style: italic;
+  color: #8d6e63;
+  text-align: center;
+  border: 1px solid #f0e0b2;
+}
+
+.app-card-joke {
+  border-top: 4px solid #28a745;
+}
+
+.app-card-joke .app-title {
+  color: #28a745;
+}
