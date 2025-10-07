@@ -1,8 +1,6 @@
 import { useState } from "react";
 import "./App.css";
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
-
 function App() {
   const [input, setInput] = useState("");
   const [result, setResult] = useState(null);
@@ -18,7 +16,7 @@ function App() {
     setExplanation(null);
 
     try {
-      const res = await fetch(`${API_BASE_URL}/grammar`, {
+      const res = await fetch(`http://localhost:8080/grammar`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text: input }),
@@ -39,7 +37,7 @@ function App() {
     setJoke(null);
 
     try {
-      const res = await fetch(`${API_BASE_URL}/`);
+      const res = await fetch(`http://localhost:8080/`);
       const data = await res.json();
       const jokeText = data.response || data["response: "] || "No joke found.";
       setJoke(jokeText);
@@ -56,7 +54,6 @@ function App() {
       {/* --- Grammar Card --- */}
       <div className="app-card">
         <h1 className="app-title">Lingoda AI Grammar Helper</h1>
-
         <form onSubmit={handleSubmit} className="app-form">
           <input
             value={input}
@@ -74,7 +71,7 @@ function App() {
         {result && (
           <div className="result-box">
             <p>
-              <b>✅ Correction:</b> {result}
+              <b>✅ Corrected:</b> {result}
             </p>
             <p>
               <b>💬 Explanation:</b> {explanation}
