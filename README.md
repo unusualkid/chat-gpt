@@ -1,4 +1,4 @@
-# 🤖 Lingoda AI Grammar Helper & Joke Generator
+# 🤖 AI Grammar Helper & Joke Generator
 
 A full-stack web app that uses the **OpenAI ChatGPT SDK** with **FastAPI** and **React** to:
 
