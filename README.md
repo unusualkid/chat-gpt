@@ -1,21 +1,24 @@
-# 🤖 AI Grammar Helper & Joke Generator
+# 🤖 AI Language Assistant
 
-A full-stack web app that uses the **OpenAI ChatGPT SDK** with **FastAPI** and **React** to:
+A full-stack web app that uses the **OpenAI ChatGPT SDK** with **FastAPI**, **React** and \*_MongoDB_ to:
 
 1. ✏️ Correct your grammar and explain the changes
 2. 😂 Tell you a random AI-generated joke
+3. 🧐 Translate your text into six languages
 
 Built with ❤️ using **FastAPI**, **OpenAI SDK**, and **React**.
 
 ---
 
-## 🚀 Features
+## 🧠 Features
 
-- **Grammar Correction** — The backend calls OpenAI’s chat completion endpoint to correct grammar and explain each fix.
-- **AI Joke Generator** — Click a button to get a short, funny joke from the model.
-- **Responsive Frontend** — Modern React UI with live feedback and loading indicators.
-- **Environment-based Configuration** — Uses `.env` for your API key and FastAPI port.
-- **CORS-enabled Backend** — Allows smooth frontend–backend communication during development.
+- ✍️ Grammar correction with explanations
+- 🌍 Translations (DE / EN / ES / FR / JP / TW) + examples
+- 🤖 AI joke generator
+- 🧱 MongoDB integration for history logging
+- ⚡ FastAPI backend + React frontend
+- 🔐 Environment variables via `.env`
+- 🧰 Pipenv for dependency & Python version management
 
 ---
 
@@ -27,51 +30,70 @@ Built with ❤️ using **FastAPI**, **OpenAI SDK**, and **React**.
 | Backend        | FastAPI           |
 | AI Integration | OpenAI Python SDK |
 | Styling        | Plain CSS         |
+| Database       | MongoDB.          |
 
 ---
 
 ## 📁 Project Structure
 
-project/
-├── .env
-├── README.md
+```
+chat-gpt/
 ├── backend/
-│ ├── main.py
-│ ├── requirements.txt
-│ └── ...
-└── frontend/
-├── src/
-│ ├── App.js
-│ ├── App.css
-│ └── ...
-├── package.json
-└── ..
+│ ├── main.py # FastAPI entrypoint
+│ ├── db.py # MongoDB (Motor) connection
+│ ├── .env # Environment variables (not committed)
+│ ├── Pipfile
+│ └── Pipfile.lock
+│
+├── frontend/
+│ ├── src/
+│ │ ├── App.js
+│ │ ├── App.css
+│ ├── package.json
+│
+└── README.md
+```
 
 ## ⚙️ Backend Setup (FastAPI)
 
 ### 1. Create and activate a virtual environment
 
-````bash
+```bash
 cd backend
 python3 -m venv venv
 source venv/bin/activate    # (Mac/Linux)
 venv\Scripts\activate       # (Windows)
+```
 
-### 2. Install dependencies
-bash
-Copy code
-pip install -r requirements.txt
+### 2. Install dependencies & run virtual environment
 
-### 3. Run the backend
+```bash
+pipenv install
+pipenv shell
+```
+
+### 3. Create .env file
+
+```
+OPENAI_API_KEY=sk-...
+MONGO_URI=mongodb+srv://<user>:<password>@cluster0.mongodb.net/?retryWrites=true&w=majority
+MONGO_DB=chat-gpt
+FASTAPI_PORT=8080
+```
+
+### 4. Run the backend
+
 ```bash
 make start
 ```
 
-💻 Frontend Setup (React + Webpack)
+## 💻 Frontend Setup (React + Webpack)
+
 ### 1. Navigate to the frontend directory
+
 ```bash
 cd ../frontend
-````
+```
 
 ### 2. Install dependencies
 
