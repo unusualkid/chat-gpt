@@ -9,20 +9,39 @@ body {
 
 .app-container {
   display: flex;
-  flex-direction: column;
+  justify-content: space-around;
   align-items: center;
-  padding: 3rem;
-  min-height: 100vh;
-  gap: 2rem;
+  gap: 7rem;
+  padding: 3rem 3rem;
+  flex-wrap: wrap;
 }
 
+/* Left column with Grammar + Joke stacked */
+.left-column {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  flex: 1;
+  min-width: 340px;
+}
+
+/* Right column (Translation Card) */
+.right-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1.5; /* make translation side slightly wider */
+  min-width: 400px;
+}
+
+/* --- Card styling --- */
 .app-card {
   background-color: white;
   border-radius: 16px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   padding: 2rem;
   width: 100%;
-  max-width: 600px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -31,6 +50,7 @@ body {
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
 }
 
+/* Titles */
 .app-title {
   font-size: 1.8rem;
   text-align: center;
@@ -38,6 +58,7 @@ body {
   color: #333;
 }
 
+/* Forms */
 .app-form {
   display: flex;
   gap: 0.5rem;
@@ -72,15 +93,7 @@ body {
   cursor: not-allowed;
 }
 
-.app-button-green {
-  background-color: #28a745;
-  margin-top: 0.5rem;
-}
-
-.app-button-green:hover {
-  background-color: #1e7e34;
-}
-
+/* Loading states */
 .loading {
   text-align: center;
   color: #666;
@@ -88,12 +101,20 @@ body {
   font-style: italic;
 }
 
+/* Result + Joke boxes */
 .result-box {
   margin-top: 1rem;
   padding: 1rem;
   background-color: #f1f8ff;
   border-radius: 8px;
   border: 1px solid #d0e7ff;
+}
+
+.joke-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.5rem;
 }
 
 .joke-box {
@@ -107,10 +128,85 @@ body {
   border: 1px solid #f0e0b2;
 }
 
+/* Buttons for specific cards */
+.app-button-green {
+  background-color: #28a745;
+}
+
+.app-button-green:hover {
+  background-color: #1e7e34;
+}
+
+.app-button-purple {
+  background-color: #8724eb;
+}
+
+.app-button-purple:hover {
+  background-color: #6619b5;
+}
+
+/* Top borders for color accent */
+.app-card-grammar {
+  border-top: 4px solid #007bff;
+}
+
+.app-card-grammar .app-title {
+  color: #007bff;
+}
+
 .app-card-joke {
   border-top: 4px solid #28a745;
 }
 
 .app-card-joke .app-title {
   color: #28a745;
+}
+
+.app-card-translation {
+  border-top: 4px solid #8724eb;
+}
+
+.app-card-translation .app-title {
+  color: #8724eb;
+}
+
+/* Translation list styling */
+.translation-result {
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.translation-block {
+  background-color: #fdfdfd;
+  padding: 0.75rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  border: 1px solid #eee;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.translation-block h4 {
+  margin-bottom: 0.25rem;
+  color: #333;
+}
+
+.translation-block ul {
+  margin-top: 0.5rem;
+  padding-left: 1.2rem;
+}
+
+.translation-block li {
+  margin-bottom: 0.25rem;
+}
+
+/* --- Responsive layout --- */
+@media (max-width: 900px) {
+  .app-container {
+    grid-template-columns: 1fr;
+  }
+
+  .left-column,
+  .right-column {
+    width: 100%;
+  }
 }
