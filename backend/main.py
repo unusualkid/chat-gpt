@@ -1,10 +1,12 @@
 import os
 import json
 import uvicorn
+from datetime import datetime
+from db import db
 from dotenv import load_dotenv
-from openai import OpenAI
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from openai import OpenAI
 from pydantic import BaseModel
 
 
@@ -71,7 +73,7 @@ def correct_grammar(request: GrammarRequest):
 
 
 @app.post("/translate", response_model=TranslateResponse)
-def translate_text(request: GrammarRequest):
+async def translate_text(request: GrammarRequest):
     system_content = """
     You are a professional multilingual translator.
     Translate the following text into:
@@ -104,6 +106,14 @@ def translate_text(request: GrammarRequest):
         start = content.find("{")
         end = content.rfind("}") + 1
         translations = json.loads(content[start:end])
+
+    # ✅ Store in MongoDB
+    record = {
+        "input_text": request.text,
+        "translations": translations,
+        "timestamp": datetime.utcnow(),
+    }
+    await db.translations.insert_one(record)
 
     return translations
 
