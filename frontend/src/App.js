@@ -148,7 +148,7 @@ function App() {
       <div className="right-column">
         {/* Translation Card */}
         <div className="app-card app-card-translation">
-          <h2 className="app-title">Translation Card 🌍</h2>
+          <h2 className="app-title">Translation Wizard 🌍</h2>
           <form onSubmit={handleTranslateSubmit} className="app-form">
             <input
               type="text"
@@ -176,11 +176,11 @@ function App() {
             <div className="translation-result">
               {Object.entries(translations).map(([code, item]) => (
                 <div key={code} className="translation-block">
-                  <div className="translation-header">
-                    <span className="translation-flag">{flagMap[code]}</span>
-                    <h4 className="translation-lang">{item.language}</h4>
-                  </div>
-                  <p className="translation-text">{item.translation}</p>
+                  <div className="translation-header"></div>
+                  <p className="translation-text">
+                    <span className="translation-flag">{flagMap[code]} </span>
+                    {item.translation}
+                  </p>
                   <ul className="translation-examples">
                     {item.examples.map((ex, idx) => (
                       <li key={idx}>{ex}</li>
