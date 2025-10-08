@@ -1,20 +1,30 @@
 import { useState } from "react";
 import "./App.css";
 
+const flagMap = {
+  de: "🇩🇪",
+  en: "🇬🇧",
+  es: "🇪🇸",
+  fr: "🇫🇷",
+  jp: "🇯🇵",
+  tw: "🇹🇼",
+};
+
 function App() {
-  const [input, setInput] = useState("");
+  const [grammarInput, setGrammarInput] = useState("");
   const [correction, setCorrection] = useState(null);
   const [explanation, setExplanation] = useState(null);
   const [joke, setJoke] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [loadingJoke, setLoadingJoke] = useState(false);
   const [translationInput, setTranslationInput] = useState("");
   const [translations, setTranslations] = useState(null);
+  const [loadingGrammar, setLoadingGrammar] = useState(false);
+  const [loadingJoke, setLoadingJoke] = useState(false);
+  const [loadingTranslation, setLoadingTranslation] = useState(false);
   const [error, setError] = useState(null);
 
   async function handleGrammarSubmit(e) {
     e.preventDefault();
-    setLoading(true);
+    setLoadingGrammar(true);
     setCorrection(null);
     setExplanation(null);
 
@@ -22,7 +32,7 @@ function App() {
       const res = await fetch(`http://localhost:8080/grammar`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: input }),
+        body: JSON.stringify({ text: grammarInput }),
       });
       const data = await res.json();
       setCorrection(data.correction);
@@ -31,7 +41,7 @@ function App() {
       console.error("Error:", error);
       setCorrection("An error occurred.");
     } finally {
-      setLoading(false);
+      setLoadingGrammar(false);
     }
   }
 
@@ -54,7 +64,7 @@ function App() {
 
   async function handleTranslateSubmit(e) {
     e.preventDefault();
-    setLoading(true);
+    setLoadingTranslation(true);
     setError(null);
     setTranslations(null);
 
@@ -62,7 +72,7 @@ function App() {
       const res = await fetch("http://localhost:8080/translate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: input }),
+        body: JSON.stringify({ text: translationInput }),
       });
 
       if (!res.ok) throw new Error("Server error");
@@ -72,7 +82,7 @@ function App() {
       console.error(err);
       setError("Failed to fetch translations.");
     } finally {
-      setLoading(false);
+      setLoadingTranslation(false);
     }
   }
 
@@ -84,17 +94,23 @@ function App() {
           <h1 className="app-title">Lingoda AI Grammar Police 👮</h1>
           <form onSubmit={handleGrammarSubmit} className="app-form">
             <input
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
+              value={grammarInput}
+              onChange={(e) => setGrammarInput(e.target.value)}
               placeholder="Enter a sentence"
               className="app-input"
             />
-            <button type="submit" className="app-button" disabled={loading}>
-              {loading ? "Checking..." : "Check"}
+            <button
+              type="submit"
+              className="app-button"
+              disabled={loadingGrammar}
+            >
+              {loadingGrammar ? "Checking..." : "Check"}
             </button>
           </form>
 
-          {loading && <div className="loading">⏳ Checking grammar...</div>}
+          {loadingGrammar && (
+            <div className="loading">⏳ Checking grammar...</div>
+          )}
 
           {correction && (
             <div className="result-box">
@@ -144,11 +160,15 @@ function App() {
             <button
               type="submit"
               className="app-button app-button-purple"
-              disabled={loading}
+              disabled={loadingTranslation}
             >
-              {loading ? "Translating..." : "Translate"}
+              {loadingTranslation ? "Translating..." : "Translate"}
             </button>
           </form>
+
+          {loadingTranslation && (
+            <div className="loading">⏳ Checking translations...</div>
+          )}
 
           {error && <p style={{ color: "red" }}>{error}</p>}
 
@@ -156,13 +176,12 @@ function App() {
             <div className="translation-result">
               {Object.entries(translations).map(([code, item]) => (
                 <div key={code} className="translation-block">
-                  <h4>
-                    {item.language} ({code.toUpperCase()})
-                  </h4>
-                  <p>
-                    <strong>Translation:</strong> {item.translation}
-                  </p>
-                  <ul>
+                  <div className="translation-header">
+                    <span className="translation-flag">{flagMap[code]}</span>
+                    <h4 className="translation-lang">{item.language}</h4>
+                  </div>
+                  <p className="translation-text">{item.translation}</p>
+                  <ul className="translation-examples">
                     {item.examples.map((ex, idx) => (
                       <li key={idx}>{ex}</li>
                     ))}
