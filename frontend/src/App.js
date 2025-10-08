@@ -50,9 +50,13 @@ function App() {
     setJoke(null);
 
     try {
-      const res = await fetch(`http://localhost:8080/`);
+      const res = await fetch(`http://localhost:8080/joke`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ topic: "random" }),
+      });
       const data = await res.json();
-      const jokeText = data.response || data["response: "] || "No joke found.";
+      const jokeText = data.joke || "No joke found.";
       setJoke(jokeText);
     } catch (error) {
       console.error("Error fetching joke:", error);

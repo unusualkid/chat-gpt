@@ -24,6 +24,10 @@ app.add_middleware(
 )
 
 
+class JokeRequest(BaseModel):
+    topic: str | None = "random"
+
+
 class GrammarRequest(BaseModel):
     text: str
 
@@ -49,8 +53,20 @@ class TranslateResponse(BaseModel):
 
 @app.get("/")
 def read_root():
-    response = client.responses.create(model="gpt-5-nano", input="Give me a joke.")
-    return {"response: ": response.output_text}
+    return {"Hello": "World"}
+
+
+@app.post("/joke")
+def generate_joke(request: JokeRequest):
+    prompt = f"Tell me a joke about {request.topic}."
+    response = client.chat.completions.create(
+        model="gpt-5-nano",
+        messages=[
+            {"role": "system", "content": "You are a witty joke generator."},
+            {"role": "user", "content": prompt},
+        ],
+    )
+    return {"joke": response.choices[0].message.content.strip()}
 
 
 @app.post("/grammar", response_model=GrammarResponse)
