@@ -10,6 +10,12 @@ Built with ❤️ using **FastAPI**, **OpenAI SDK**, and **React**.
 
 ---
 
+## Preview
+
+![alt text](preview_image.png)
+
+---
+
 ## 🧠 Features
 
 - ✍️ Grammar correction with explanations
