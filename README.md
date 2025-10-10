@@ -60,6 +60,8 @@ chat-gpt/
 └── README.md
 ```
 
+---
+
 ## ⚙️ Backend Setup (FastAPI)
 
 ### 1. Create and activate a virtual environment
@@ -92,6 +94,8 @@ FASTAPI_PORT=8080
 ```bash
 make start
 ```
+
+---
 
 ## 💻 Frontend Setup (React + Webpack)
 
